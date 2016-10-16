@@ -18,6 +18,7 @@ public class DungeonCreator : MonoBehaviour
     }
     public GameObject player;
     public GameObject heart;
+    private GameObject heartInstance;
     public static int unitSize = 2;
     public int columns = 100;
     public int rows = 100;
@@ -45,6 +46,13 @@ public class DungeonCreator : MonoBehaviour
 
     private void Start()
     {
+        GenerateDungeon();
+    }
+    #endregion
+
+    #region Public Functions
+    public void GenerateDungeon()
+    {
         boardHolder = new GameObject("Dungeon");
 
         SetupTilesArray();
@@ -56,9 +64,14 @@ public class DungeonCreator : MonoBehaviour
 
         InstantiateTiles();
     }
-    #endregion
 
-    #region Public Functions
+    public void ReGenerateDungeon()
+    {
+        Destroy(boardHolder.gameObject);
+        Destroy(heartInstance.gameObject);
+        GenerateDungeon();
+    }
+
     void SetupTilesArray()
     {
         tiles = new TileType[columns][];
@@ -114,7 +127,7 @@ public class DungeonCreator : MonoBehaviour
 
         //set the location of the heart to the last room
         Vector3 heartPosition = new Vector3(rooms[rooms.Length - 1].GetCenterPointInRoom().x, heart.transform.position.y, rooms[rooms.Length - 1].GetCenterPointInRoom().y);
-        Instantiate(heart, heartPosition, Quaternion.identity);
+        heartInstance = Instantiate(heart, heartPosition, Quaternion.identity) as GameObject;
     }
 
     void SetTilesValuesForRooms()
