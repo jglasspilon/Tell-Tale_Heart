@@ -31,6 +31,6 @@ public class soundVisualizer : MonoBehaviour
             packagedData += System.Math.Abs(info[x]);
         }
 
-        targetLight.intensity = 1.0f * packagedData * amplitude;
+        targetLight.intensity = Mathf.Clamp(1.0f * packagedData * amplitude, 0.01f, 3);
 	}
 }
