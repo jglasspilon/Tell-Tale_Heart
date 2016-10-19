@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public Camera camera;
     public CameraFade fader;
     public soundVisualizer visualizer;
+    public AudioSource laughAudioSource;
     private AcidTrip.AcidTrip effect;
 
     public void Start() {
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Regenerate()
     {
+        laughAudioSource.loop = false;
+        laughAudioSource.Play();
         fader.BeginFade(1);
         Debug.Log(fader.getAlpha());
         while (fader.getAlpha() < 1)
